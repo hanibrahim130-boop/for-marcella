@@ -725,14 +725,19 @@ const TIME_OPTS = [
 ];
 const VIBE_OPTS = ['sea','roof','cozy','surprise'];
 
-function nextDays(n){
-  const out=[], base=new Date();
-  base.setHours(12,0,0,0);
-  for(let i=1;i<=n;i++){
-    const d=new Date(base); d.setDate(base.getDate()+i);
-    out.push(d);
-  }
-  return out;
+// PINNED to one specific weekend: Fri 25 – Sun 27 Sept 2026.
+// The link is sent once, so it must show the SAME three days whenever Marcella opens it —
+// a rolling "next weekend" would silently shift the date if she opens it a day later.
+const TARGET_FRI = new Date(2026, 8, 25, 12, 0, 0);   // month 8 = September
+function weekendDays(){
+  return [0,1,2].map(i=>{
+    const d=new Date(TARGET_FRI);
+    d.setDate(TARGET_FRI.getDate()+i);
+    return d;
+  });
+}
+function isoLocal(d){
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 }
 function dayLabel(d){
   try{
@@ -754,8 +759,8 @@ function buildChips(){
   const days = $('#days'), times = $('#times'), vibes = $('#vibes');
   days.innerHTML=''; times.innerHTML=''; vibes.innerHTML='';
 
-  nextDays(6).forEach((d,i)=>{
-    const v = d.toISOString().slice(0,10);
+  weekendDays().forEach((d,i)=>{
+    const v = isoLocal(d);
     days.appendChild(chip(dayLabel(d), null, 'days', v, sel.day===v || (!sel.day && i===0)));
   });
   if(!state().day){ const f=$('#days .chip'); if(f){ f.classList.add('on'); } }
