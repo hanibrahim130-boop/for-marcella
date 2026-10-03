@@ -340,7 +340,7 @@ footer .heart{color:var(--rose)}
         <span class="env-card">
           <span class="env-card-in">
             <span class="env-card-k" data-i18n="env.cardk">the invitation</span>
-            <span class="env-card-d" data-i18n="env.cardd">Sunday, 27 September</span>
+            <span class="env-card-d" data-i18n="env.cardd">Sunday, 4 October</span>
             <span class="env-card-t">6:30 pm</span>
           </span>
         </span>
@@ -367,7 +367,7 @@ footer .heart{color:var(--rose)}
     <canvas id="sky"></canvas>
     <div class="wrap inv-in">
       <p class="eyebrow rv" data-i18n="inv.eyebrow">your invitation</p>
-      <h1 class="inv-date rv d1" data-i18n="inv.date">Sunday, 27 September</h1>
+      <h1 class="inv-date rv d1" data-i18n="inv.date">Sunday, 4 October</h1>
       <p class="inv-time rv d2" data-i18n="inv.time">half past six in the evening</p>
       <div class="inv-rule rv d2"></div>
       <p class="inv-line rv d3" data-i18n="inv.line">You said <em>surprise me</em>. So here's the deal — two clues, and the rest arrives at your door.</p>
@@ -481,9 +481,9 @@ const I18N = {
     'env.eyebrow':'you said surprise me',
     'env.hint':'tap to open',
     'env.cardk':'the invitation',
-    'env.cardd':'Sunday, 27 September',
+    'env.cardd':'Sunday, 4 October',
     'inv.eyebrow':'your invitation',
-    'inv.date':'Sunday, 27 September',
+    'inv.date':'Sunday, 4 October',
     'inv.time':'half past six in the evening',
     'inv.line':"You said <em>surprise me</em>. So here's the deal — two clues, and the rest arrives at your door.",
     'inv.cd':"until I'm at your door",
@@ -519,17 +519,17 @@ const I18N = {
     'cta.done':"Got it. Now go pick something to wear — I'll be at your door at 6:30.",
     'foot':'Made by Hani — for Marcella, and only Marcella. ♥',
     'ics.summary':'Something I owe you 💗',
-    'ics.desc':'Sunday 27 September, 6:30 PM. Wear something you feel unstoppable in, and shoes you can walk in. Bring nothing. The rest is his job.',
-    'wa':'💗 I\'ll be ready. Sunday 27 September, 6:30 PM. Surprise me.',
+    'ics.desc':'Sunday 4 October, 6:30 PM. Wear something you feel unstoppable in, and shoes you can walk in. Bring nothing. The rest is his job.',
+    'wa':'💗 I\'ll be ready. Sunday 4 October, 6:30 PM. Surprise me.',
     'lang':'العربية'
   },
   ar:{
     'env.eyebrow':'قلتيلي فاجئيني',
     'env.hint':'افتحيني',
     'env.cardk':'الدعوة',
-    'env.cardd':'الأحد ٢٧ أيلول',
+    'env.cardd':'الأحد ٤ تشرين الأول',
     'inv.eyebrow':'دعوتك',
-    'inv.date':'الأحد ٢٧ أيلول',
+    'inv.date':'الأحد ٤ تشرين الأول',
     'inv.time':'الساعة ستة ونص بالليل',
     'inv.line':'قلتي «<em>فاجئيني</em>». فخلّينا هيك — تلميحين، والباقي بيوصلك عالباب.',
     'inv.cd':'لما شوفك',
@@ -565,19 +565,19 @@ const I18N = {
     'cta.done':'تمام. روحي اختاري شو تلبسي — وأنا عالباب ٦:٣٠.',
     'foot':'من هاني — لمارسيلا، وبس مارسيلا. ♥',
     'ics.summary':'شي أنا مدينلك فيه 💗',
-    'ics.desc':'الأحد ٢٧ أيلول، ٦:٣٠ مساءً. البسي شي بتحسّي حالك فيه ملكة، وكندرة بتحبيها لفوق. وما تجيبي شي. الباقي شغلو.',
-    'wa':'💗 رح كون جاهزة. الأحد ٢٧ أيلول، ٦:٣٠ مساءً. فاجئني.',
+    'ics.desc':'الأحد ٤ تشرين الأول، ٦:٣٠ مساءً. البسي شي بتحسّي حالك فيه ملكة، وكندرة بتحبيها لفوق. وما تجيبي شي. الباقي شغلو.',
+    'wa':'💗 رح كون جاهزة. الأحد ٤ تشرين الأول، ٦:٣٠ مساءً. فاجئني.',
     'lang':'English'
   }
 };
 
 /* ============================================================
-   PINNED DATE — Sunday 27 September 2026, 18:30 (viewer's own
+   PINNED DATE — Sunday 4 October 2026, 18:30 (viewer's own
    timezone, so 6:30pm means 6:30pm wherever she is). Never a
    rolling "next weekend": the link is sent once and must always
    show the same date, even if she opens it a day later.
    ============================================================ */
-const TARGET = new Date(2026, 8, 27, 18, 30, 0);
+const TARGET = new Date(2026, 9, 4, 18, 30, 0);
 const SENT   = new Date(2026, 8, 17, 0, 0, 0);
 const WA_NUMBER = '447919987315';
 
@@ -739,9 +739,9 @@ $('#readyBtn').addEventListener('click', ()=>{
 });
 
 function icsText(){
-  const D = '20260927T183000', E = '20260927T233000';
+  const D = '20261004T183000', E = '20261004T233000';
   return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Hani//For Marcella//EN','CALSCALE:GREGORIAN',
-    'BEGIN:VEVENT','UID:marcella-20260927@for-marcella.pages.dev',
+    'BEGIN:VEVENT','UID:marcella-20261004@for-marcella.pages.dev',
     'DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z',
     'DTSTART:'+D,'DTEND:'+E,
     'SUMMARY:'+T('ics.summary'),
