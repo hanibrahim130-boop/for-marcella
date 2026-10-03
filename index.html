@@ -229,22 +229,39 @@ body.ar .clue h3{font-family:var(--kufi);font-weight:400}
 }
 body.ar .clue .tag{letter-spacing:.04em;font-size:.72rem}
 
-/* sealed third clue */
-.clue.locked{background:linear-gradient(165deg,rgba(255,111,143,.10),rgba(255,255,255,.016));border-color:rgba(255,111,143,.24)}
-.clue.locked .clue-body{position:relative}
-.clue.locked .clue-text{filter:blur(7px);opacity:.42;user-select:none;transition:filter .9s,opacity .9s}
-.clue.locked .lock-veil{
-  position:absolute;inset:-6px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:10px;text-align:center;transition:opacity .7s
-}
-.lock-ico{font-size:1.6rem;animation:hintpulse 3s ease-in-out infinite}
-.lock-txt{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--rose-soft);line-height:1.9}
-body.ar .lock-txt{letter-spacing:.04em;font-size:.82rem}
-.clue.unlocked .clue-text{filter:none;opacity:1}
-.clue.unlocked .lock-veil{opacity:0;pointer-events:none}
-.clue.unlocked{background:linear-gradient(165deg,rgba(233,196,137,.14),rgba(255,111,143,.06));border-color:rgba(233,196,137,.4)}
-.clue .reveal-pop{animation:pop .9s cubic-bezier(.2,.8,.3,1) both}
+/* pop keyframes — shared by .stop.reveal-pop */
 @keyframes pop{0%{transform:scale(.94);opacity:.3}100%{transform:none;opacity:1}}
+
+/* ---------- THE DAY ---------- */
+#day{background:linear-gradient(180deg,var(--night2) 0%,var(--night) 46%,var(--night2) 100%)}
+.day-list{display:flex;flex-direction:column;gap:clamp(12px,2.6vw,18px);margin-top:48px}
+.stop{
+  display:flex;gap:clamp(14px,3vw,20px);align-items:flex-start;
+  padding:clamp(18px,3.6vw,26px) clamp(18px,3.8vw,30px);border-radius:22px;
+  background:linear-gradient(165deg,rgba(255,255,255,.068),rgba(255,255,255,.02));
+  border:1px solid var(--stroke);box-shadow:var(--shadow);
+  transition:background .9s,border-color .9s
+}
+.stop.locked{background:linear-gradient(165deg,rgba(255,111,143,.09),rgba(255,255,255,.015));border-color:rgba(255,111,143,.2)}
+.stop.unlocked{background:linear-gradient(165deg,rgba(233,196,137,.13),rgba(255,111,143,.055));border-color:rgba(233,196,137,.38)}
+.stop-n{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--gold);opacity:.85;line-height:1;padding-top:5px;min-width:20px;text-align:center}
+body.ar .stop-n{font-style:normal}
+.stop-main{flex:1;min-width:0}
+.stop-head{display:flex;align-items:center;gap:11px}
+.stop-ico{font-size:1.35rem;line-height:1}
+.stop-name{font-family:var(--serif);font-weight:600;font-size:clamp(1.18rem,3.4vw,1.45rem);margin:0;letter-spacing:-.01em}
+body.ar .stop-name{font-family:var(--kufi);font-weight:400}
+.stop-blurb{margin:9px 0 0;font-size:.95rem;line-height:1.75}
+.stop-time{display:inline-block;margin-top:12px;font-size:.66rem;letter-spacing:.22em;color:rgba(233,196,137,.75);text-transform:uppercase;font-variant-numeric:tabular-nums}
+body.ar .stop-time{letter-spacing:.05em;font-size:.76rem}
+.stop.locked .stop-n{opacity:.55}
+.redact{display:block;height:10px;border-radius:6px;background:rgba(246,241,234,.1);margin-top:12px;width:72%;animation:shimmer 2.8s ease-in-out infinite}
+.redact.s{width:42%;margin-top:8px}
+@keyframes shimmer{0%,100%{opacity:.45}50%{opacity:1}}
+.stop-lock{display:block;margin-top:14px;font-size:.8rem;color:var(--rose-soft);letter-spacing:.05em}
+.stop-in{display:block;margin-top:5px;font-size:.78rem;color:rgba(246,241,234,.5)}
+.stop-in b{font-weight:400;color:rgba(246,241,234,.78);font-variant-numeric:tabular-nums}
+.stop.reveal-pop{animation:pop .9s cubic-bezier(.2,.8,.3,1) both}
 
 /* ---------- STRIP ---------- */
 #strip{background:var(--night)}
@@ -341,7 +358,7 @@ footer .heart{color:var(--rose)}
           <span class="env-card-in">
             <span class="env-card-k" data-i18n="env.cardk">the invitation</span>
             <span class="env-card-d" data-i18n="env.cardd">Sunday, 4 October</span>
-            <span class="env-card-t">6:30 pm</span>
+            <span class="env-card-t">1:00 pm</span>
           </span>
         </span>
         <span class="env-front"></span>
@@ -368,9 +385,9 @@ footer .heart{color:var(--rose)}
     <div class="wrap inv-in">
       <p class="eyebrow rv" data-i18n="inv.eyebrow">your invitation</p>
       <h1 class="inv-date rv d1" data-i18n="inv.date">Sunday, 4 October</h1>
-      <p class="inv-time rv d2" data-i18n="inv.time">half past six in the evening</p>
+      <p class="inv-time rv d2" data-i18n="inv.time">from one in the afternoon</p>
       <div class="inv-rule rv d2"></div>
-      <p class="inv-line rv d3" data-i18n="inv.line">You said <em>surprise me</em>. So here's the deal — two clues, and the rest arrives at your door.</p>
+      <p class="inv-line rv d3" data-i18n="inv.line">You said <em>surprise me</em>. So I planned the whole day — and it reveals itself, stop by stop.</p>
 
       <div class="cd rv d3" id="cd">
         <div class="cd-t"><b id="cdD">--</b><span data-i18n="cd.days">days</span></div>
@@ -379,7 +396,7 @@ footer .heart{color:var(--rose)}
         <div class="cd-t"><b id="cdS">--</b><span data-i18n="cd.seconds">seconds</span></div>
       </div>
       <div class="bar rv d4"><i id="barFill"></i></div>
-      <p class="cd-cap rv d4" id="cdCap" data-i18n="inv.cd">until I'm at your door</p>
+      <p class="cd-cap rv d4" id="cdCap" data-i18n="inv.cd">until our day starts</p>
 
       <a class="scroll-cue rv d4" href="#clues"><i></i><span data-i18n="inv.cue">what you need to know</span></a>
     </div>
@@ -390,41 +407,44 @@ footer .heart{color:var(--rose)}
     <div class="wrap">
       <div style="max-width:660px;text-align:center;margin:0 auto">
         <p class="eyebrow rv" data-i18n="clues.eyebrow">the only things I'm allowed to tell you</p>
-        <h2 class="rv d1" data-i18n="clues.title">Two clues. That's all you get.</h2>
-        <p class="rv d2" data-i18n="clues.body">You asked to be surprised, so I'm keeping this one. Here's everything you actually need.</p>
+        <h2 class="rv d1" data-i18n="clues.title">Two things. Then the day does the talking.</h2>
+        <p class="rv d2" data-i18n="clues.body">You asked to be surprised — so the day opens itself up, piece by piece, right on time.</p>
       </div>
 
       <div class="clue-grid">
         <div class="clue rv d1">
           <div class="clue-ico">👠</div>
           <h3 data-i18n="clue1.t">What to wear</h3>
-          <p data-i18n="clue1.b">Something you feel unstoppable in — and shoes you can actually walk in. We're not sitting still the whole night.</p>
+          <p data-i18n="clue1.b">Something you feel unstoppable in — and shoes you can actually walk in. This one's a full day.</p>
           <div class="tag" data-i18n="clue1.tag">clue one</div>
         </div>
 
         <div class="clue rv d2">
           <div class="clue-ico">🤍</div>
           <h3 data-i18n="clue2.t">What to bring</h3>
-          <p data-i18n="clue2.b">Nothing. Just be ready by half six. Everything else is already handled — that part is my job.</p>
+          <p data-i18n="clue2.b">Nothing. Just be ready by one — everything else is already handled. That part's my job.</p>
           <div class="tag" data-i18n="clue2.tag">clue two</div>
         </div>
 
-        <div class="clue locked rv d3" id="sealedClue">
-          <div class="clue-ico">🔒</div>
+        <div class="clue rv d3">
+          <div class="clue-ico">🗺️</div>
           <h3 data-i18n="clue3.t">What we're doing</h3>
-          <div class="clue-body">
-            <div class="clue-text" id="sealText">
-              <p data-i18n="clue3.open">Tonight you decide nothing. Not the place, not the food, not the music. You just say yes one more time and let me do the rest.</p>
-            </div>
-            <div class="lock-veil" id="lockVeil">
-              <span class="lock-ico">🔒</span>
-              <span class="lock-txt" id="lockTxt" data-i18n="clue3.locked">sealed until sunday, 6:30 pm</span>
-              <span class="lock-txt" id="lockIn" style="opacity:.7"></span>
-            </div>
-          </div>
-          <div class="tag" id="sealTag" data-i18n="clue3.tag">clue three — sealed</div>
+          <p data-i18n="clue3.b">It's mapped below — eight stops, sealed one by one. Each one unveils itself just before we get there.</p>
+          <div class="tag" data-i18n="clue3.tag">the plan — below</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ---------- THE DAY ---------- -->
+  <section id="day">
+    <div class="wrap">
+      <div style="max-width:660px;text-align:center;margin:0 auto">
+        <p class="eyebrow rv" data-i18n="day.eyebrow">the plan — stop by stop</p>
+        <h2 class="rv d1" data-i18n="day.title">Your Sunday, stop by stop.</h2>
+        <p class="rv d2" data-i18n="day.body">It unfolds on its own — each stop appears right before we get there. Keep the page close on Sunday.</p>
+      </div>
+      <div class="day-list" id="dayList"></div>
     </div>
   </section>
 
@@ -458,12 +478,12 @@ footer .heart{color:var(--rose)}
     <div class="wrap">
       <p class="eyebrow rv" data-i18n="cta.eyebrow">so — sunday</p>
       <h2 class="rv d1" data-i18n="cta.title">Tell me you'll be ready.</h2>
-      <p class="rv d2" data-i18n="cta.body">That's the only thing I need from you. The rest is already planned, booked and paid for.</p>
+      <p class="rv d2" data-i18n="cta.body">That's the only thing I need from you — the day is already planned, end to end.</p>
       <div class="btn-row rv d3">
         <button class="btn btn-yes pulse" id="readyBtn" type="button" data-i18n="cta.btn">I'll be ready 💗</button>
         <button class="btn btn-ghost" id="icsBtn" type="button" data-i18n="cta.ics">Add it to my calendar</button>
       </div>
-      <p class="cta-done" id="ctaDone" data-i18n="cta.done">Got it. Now go pick something to wear — I'll be at your door at 6:30.</p>
+      <p class="cta-done" id="ctaDone" data-i18n="cta.done">Got it. Shoes you can walk in, and be ready by one — the rest is mine. 💗</p>
     </div>
   </section>
 
@@ -484,27 +504,45 @@ const I18N = {
     'env.cardd':'Sunday, 4 October',
     'inv.eyebrow':'your invitation',
     'inv.date':'Sunday, 4 October',
-    'inv.time':'half past six in the evening',
-    'inv.line':"You said <em>surprise me</em>. So here's the deal — two clues, and the rest arrives at your door.",
-    'inv.cd':"until I'm at your door",
+    'inv.time':'from one in the afternoon',
+    'inv.line':"You said <em>surprise me</em>. So I planned the whole day — and it reveals itself, stop by stop.",
+    'inv.cd':'until our day starts',
     'inv.now':"it's time 💗",
     'inv.cue':'what you need to know',
     'cd.days':'days','cd.hours':'hours','cd.minutes':'minutes','cd.seconds':'seconds',
     'clues.eyebrow':"the only things I'm allowed to tell you",
-    'clues.title':"Two clues. That's all you get.",
-    'clues.body':"You asked to be surprised, so I'm keeping this one. Here's everything you actually need.",
+    'clues.title':'Two things. Then the day does the talking.',
+    'clues.body':'You asked to be surprised — so the day opens itself up, piece by piece, right on time.',
     'clue1.t':'What to wear',
-    'clue1.b':"Something you feel unstoppable in — and shoes you can actually walk in. We're not sitting still the whole night.",
+    'clue1.b':"Something you feel unstoppable in — and shoes you can actually walk in. This one's a full day.",
     'clue1.tag':'clue one',
     'clue2.t':'What to bring',
-    'clue2.b':'Nothing. Just be ready by half six. Everything else is already handled — that part is my job.',
+    'clue2.b':"Nothing. Just be ready by one — everything else is already handled. That part's my job.",
     'clue2.tag':'clue two',
     'clue3.t':"What we're doing",
-    'clue3.tag':'clue three — sealed',
-    'clue3.tagopen':'clue three — unsealed 💗',
-    'clue3.locked':'sealed until sunday, 6:30 pm',
-    'clue3.in':'opens in',
-    'clue3.open':"Tonight you decide nothing. Not the place, not the food, not the music. You just say yes one more time and let me do the rest.",
+    'clue3.b':"It's mapped below — eight stops, sealed one by one. Each one unveils itself just before we get there.",
+    'clue3.tag':'the plan — below',
+    'day.eyebrow':'the plan — stop by stop',
+    'day.title':'Your Sunday, stop by stop.',
+    'day.body':'It unfolds on its own — each stop appears right before we get there. Keep the page close on Sunday.',
+    'day.unveil':'unveils at {t}',
+    'day.in':'opens in',
+    's1.n':'Kahwat Ras Beirut',
+    's1.b':'A light Lebanese lunch, a calm table, and an easy talk before the day picks up.',
+    's2.n':'Score Bowling & Games',
+    's2.b':"One game of bowling — and if it's going well, a second one, or arcade and air hockey.",
+    's3.n':'Brimm Hamra',
+    's3.b':"A quick coffee — exactly the pause we'll want after bowling.",
+    's4.n':'Booza Society',
+    's4.b':'Ice cream, to go — fuel before the sea.',
+    's5.n':'Raouché & the sunset',
+    's5.b':'A walk on the Corniche, a seat facing the sea, and the sunset. Photos included.',
+    's6.n':'On the way to Mar Mikhael',
+    's6.b':"From Raouché toward Mar Mikhael — and if we're early, a slow loop through Gemmayze.",
+    's7.n':'The Wooden Cellar',
+    's7.b':'A quiet Italian dinner — corner table, no rush.',
+    's8.n':'Mar Mikhael — Armenia Street',
+    's8.b':"A walk after dinner, then a quiet drink or dessert — if we're not ready for the night to end.",
     'strip.eyebrow':'and meanwhile, these',
     'strip.title':'I keep coming back to them.',
     'strip.body':"On Sunday I get the real thing instead of the photo. That's the whole point.",
@@ -513,14 +551,14 @@ const I18N = {
     'gal.c3t':'The calm','gal.c3b':'Bring this one with you.',
     'cta.eyebrow':'so — sunday',
     'cta.title':"Tell me you'll be ready.",
-    'cta.body':"That's the only thing I need from you. The rest is already planned, booked and paid for.",
+    'cta.body':"That's the only thing I need from you — the day is already planned, end to end.",
     'cta.btn':"I'll be ready 💗",
     'cta.ics':'Add it to my calendar',
-    'cta.done':"Got it. Now go pick something to wear — I'll be at your door at 6:30.",
+    'cta.done':'Got it. Shoes you can walk in, and be ready by one — the rest is mine. 💗',
     'foot':'Made by Hani — for Marcella, and only Marcella. ♥',
     'ics.summary':'Something I owe you 💗',
-    'ics.desc':'Sunday 4 October, 6:30 PM. Wear something you feel unstoppable in, and shoes you can walk in. Bring nothing. The rest is his job.',
-    'wa':'💗 I\'ll be ready. Sunday 4 October, 6:30 PM. Surprise me.',
+    'ics.desc':'Sunday 4 October, from 1 PM — a full day, start to finish. Wear shoes you can walk in, bring nothing. The rest is handled.',
+    'wa':"💗 I'll be ready. Sunday 4 October — a full day. Surprise me.",
     'lang':'العربية'
   },
   ar:{
@@ -530,27 +568,45 @@ const I18N = {
     'env.cardd':'الأحد ٤ تشرين الأول',
     'inv.eyebrow':'دعوتك',
     'inv.date':'الأحد ٤ تشرين الأول',
-    'inv.time':'الساعة ستة ونص بالليل',
-    'inv.line':'قلتي «<em>فاجئيني</em>». فخلّينا هيك — تلميحين، والباقي بيوصلك عالباب.',
-    'inv.cd':'لما شوفك',
+    'inv.time':'من الواحدة بعد الظهر',
+    'inv.line':'قلتي «<em>فاجئيني</em>». فرتّبت اليوم كامل — وبيتكنشف محطة محطة.',
+    'inv.cd':'لحتى يبلش يومنا',
     'inv.now':'صارت الساعة 💗',
     'inv.cue':'الشي يلي لازم تعرفيه',
     'cd.days':'يوم','cd.hours':'ساعة','cd.minutes':'دقيقة','cd.seconds':'ثانية',
     'clues.eyebrow':'الشي الوحيد يلي مسموح قولو',
-    'clues.title':'تلميحين. وبس.',
-    'clues.body':'إنتي طلبتي تنفاجئي، فخلّيني كتّم هالسّر. هيدا كل شي لازم تعرفيه.',
+    'clues.title':'شغلتين بس. وبعدها اليوم بيحكي عن حالو.',
+    'clues.body':'إنتي طلبتي تنفاجئي — فاليوم بيفتح عن حالو شوي شوي، وبوقتو بالزبط.',
     'clue1.t':'شو تلبسي',
-    'clue1.b':'شي بتحسّي حالك فيه ملكة — وكندرة بتحبيها لفوق. مش رح نضل قاعدين الليل كله.',
+    'clue1.b':'شي بتحسّي حالك فيه ملكة — وكندرة بتقدري تمشي فيها منيح. اليوم كامل، من الظهر لآخر الليل.',
     'clue1.tag':'التلميح الأول',
     'clue2.t':'شو تجيبي',
-    'clue2.b':'ولا شي. بس كوني جاهزة بستة ونص. الباقي كله مرتب — وهاد شغلي أنا.',
+    'clue2.b':'ولا شي. بس كوني جاهزة عالواحدة — الباقي كله مرتب. وهاد شغلي أنا.',
     'clue2.tag':'التلميح التاني',
     'clue3.t':'شو رح نعمل',
-    'clue3.tag':'التلميح التالت — مختوم',
-    'clue3.tagopen':'التلميح التالت — انفتح 💗',
-    'clue3.locked':'مختوم لليوم الأحد ٦:٣٠ مساءً',
-    'clue3.in':'بيفتح بعد',
-    'clue3.open':'بليل ممنوع يكون عندك أي قرار. لا المكان، لا الأكل، ولا الموسيقى. إنتي بس قولي «إي» مرة كمان وخلّيني أنا رتّب الباقي.',
+    'clue3.b':'مرسوم تحت — تمانية محطات، مختومين وحدة وحدة. كل محطة بتتكشف قبل ما نوصلها بشوي.',
+    'clue3.tag':'البرنامج — تحت',
+    'day.eyebrow':'البرنامج — محطة محطة',
+    'day.title':'يوم الأحد — محطة محطة.',
+    'day.body':'بينكشف لحالو — كل محطة بتطلع قبل ما نوصلها بشوي. خلي الصفحة قريبة منك يوم الأحد.',
+    'day.unveil':'بتنكشف الساعة {t}',
+    'day.in':'بيفتح بعد',
+    's1.n':'Kahwat Ras Beirut',
+    's1.b':'غدا لبناني خفيف، قعدة هادية، وحكي براحة قبل النشاطات.',
+    's2.n':'Score Bowling & Games',
+    's2.b':'لعبة بولينغ — وإذا ماشية حلو، لعبة تانية أو أركيد وأير هوكي.',
+    's3.n':'Brimm Hamra',
+    's3.b':'قهوة سريعة — بالزبط النَفَس يلي بدنا ياه بعد البولينغ.',
+    's4.n':'Booza Society',
+    's4.b':'بوظة تيك أواي — وقود قبل البحر.',
+    's5.n':'الروشة والغروب',
+    's5.b':'مشي عالكورنيش، قعدة قبال البحر، والغروب. مع وقفة صور.',
+    's6.n':'عالطريق لمار مخايل',
+    's6.b':'من الروشة عالمار مخايل — وإذا وصلنا بكير، لفّة هادية بالجميزة.',
+    's7.n':'The Wooden Cellar',
+    's7.b':'عشا إيطالي هادي — طاولة عالطرف، وبلا استعجال.',
+    's8.n':'مار مخايل — شارع أرمينيا',
+    's8.b':'مشي بعد العشا، وبعدها مشروب أو ديسير بمحل هادي — إذا بعدنا ما بدنا الليلة تخلص.',
     'strip.eyebrow':'وعالطريق، هدول',
     'strip.title':'ما بقدر ما رجّع أطّلع عليهن.',
     'strip.body':'يوم الأحد باخد الأصل بدل الصورة. وهاد كل الهدف.',
@@ -559,27 +615,44 @@ const I18N = {
     'gal.c3t':'الهدوء','gal.c3b':'جيبي هيدي معك.',
     'cta.eyebrow':'إذن — الأحد',
     'cta.title':'قوليلي إنك رح تكوني جاهزة.',
-    'cta.body':'هاد الشي الوحيد يلي بدي ياه منك. الباقي كله مرتّب ومحجوز ومدفوع.',
+    'cta.body':'هاد الشي الوحيد يلي بدي ياه منك — اليوم كله مرتب من أولو لآخرو.',
     'cta.btn':'رح كون جاهزة 💗',
     'cta.ics':'زيديه عالتقويم',
-    'cta.done':'تمام. روحي اختاري شو تلبسي — وأنا عالباب ٦:٣٠.',
+    'cta.done':'تمام. كندرة بتمشي فيها، وكوني جاهزة عالواحدة — والباقي عليي. 💗',
     'foot':'من هاني — لمارسيلا، وبس مارسيلا. ♥',
     'ics.summary':'شي أنا مدينلك فيه 💗',
-    'ics.desc':'الأحد ٤ تشرين الأول، ٦:٣٠ مساءً. البسي شي بتحسّي حالك فيه ملكة، وكندرة بتحبيها لفوق. وما تجيبي شي. الباقي شغلو.',
-    'wa':'💗 رح كون جاهزة. الأحد ٤ تشرين الأول، ٦:٣٠ مساءً. فاجئني.',
+    'ics.desc':'الأحد ٤ تشرين، من الواحدة بعد الظهر — يوم كامل من أوله لآخره. البسي كندرة بتمشي فيها وما تجيبي شي. الباقي مرتب.',
+    'wa':'💗 رح كون جاهزة. الأحد ٤ تشرين — يوم كامل. فاجئني.',
     'lang':'English'
   }
 };
 
 /* ============================================================
-   PINNED DATE — Sunday 4 October 2026, 18:30 (viewer's own
-   timezone, so 6:30pm means 6:30pm wherever she is). Never a
-   rolling "next weekend": the link is sent once and must always
-   show the same date, even if she opens it a day later.
+   PINNED DATE — Sunday 4 October 2026, 13:00 (viewer's own
+   timezone, so 1pm means 1pm wherever she is). Never a rolling
+   "next weekend": the link is sent once and must always show
+   the same date, even if she opens it a day later.
    ============================================================ */
-const TARGET = new Date(2026, 9, 4, 18, 30, 0);
+const TARGET = new Date(2026, 9, 4, 13, 0, 0);
 const SENT   = new Date(2026, 8, 17, 0, 0, 0);
 const WA_NUMBER = '447919987315';
+
+/* ============================================================
+   THE DAY — eight stops. Each stop unseals itself 30 minutes
+   before it starts, on the viewer's own clock, and stays open.
+   uL = the time it unseals (viewer-local, h:mm — " pm" is
+   appended for the English side).
+   ============================================================ */
+const STOPS = [
+  { t:'1:00 – 2:30',  uL:'12:30', u:[12, 30], ico:'🍽️', k:'s1' },
+  { t:'2:45 – 4:15',  uL:'2:15',  u:[14, 15], ico:'🎳', k:'s2' },
+  { t:'4:20 – 4:50',  uL:'3:50',  u:[15, 50], ico:'☕', k:'s3' },
+  { t:'5:00 – 5:20',  uL:'4:30',  u:[16, 30], ico:'🍨', k:'s4' },
+  { t:'5:30 – 7:00',  uL:'5:00',  u:[17,  0], ico:'🌅', k:'s5' },
+  { t:'7:00 – 8:00',  uL:'6:30',  u:[18, 30], ico:'🚕', k:'s6' },
+  { t:'8:00 – 10:00', uL:'7:30',  u:[19, 30], ico:'🍝', k:'s7' },
+  { t:'10:00 →',      uL:'9:30',  u:[21, 30], ico:'🥂', k:'s8' },
+].map(s => ({ ...s, unlock: new Date(2026, 9, 4, s.u[0], s.u[1], 0) }));
 
 let LANG = 'en';
 const $  = (s,r=document)=>r.querySelector(s);
@@ -594,7 +667,7 @@ function applyLang(lang){
   document.documentElement.setAttribute('dir', lang==='ar' ? 'rtl' : 'ltr');
   $$('[data-i18n]').forEach(el=>{ const k=el.getAttribute('data-i18n'); if(I18N[lang][k]!==undefined) el.innerHTML=I18N[lang][k]; });
   $('#lang').textContent = T('lang');
-  if(sealedUnlocked) $('#sealTag').textContent = T('clue3.tagopen');
+  renderDay();
   renderCountdown();
 }
 
@@ -710,25 +783,63 @@ function renderCountdown(){
   return {d,h,m,past};
 }
 
-/* ================= sealed third clue ================= */
-let sealedUnlocked = false;
-function checkSeal(announce){
-  if(sealedUnlocked) return;
-  if(Date.now() < TARGET.getTime()){
-    const {d,h} = renderCountdown();
-    $('#lockIn').textContent = T('clue3.in') + ' ' + d + 'd ' + h + 'h';
-    return;
+/* ================= the day — sealed stops ================= */
+const announced = new Set();
+function fmtLeft(ms){
+  const sec = Math.max(0, Math.floor(ms / 1000));
+  const d = Math.floor(sec / 86400), h = Math.floor(sec % 86400 / 3600),
+        m = Math.floor(sec % 3600 / 60), s = sec % 60;
+  const hh = String(h).padStart(2,'0'), mm = String(m).padStart(2,'0'), ss = String(s).padStart(2,'0');
+  return d > 0 ? d + 'd ' + hh + ':' + mm + ':' + ss : hh + ':' + mm + ':' + ss;
+}
+function stopHTML(s){
+  if(Date.now() >= s.unlock.getTime()){
+    return '<div class="stop-head"><span class="stop-ico">' + s.ico + '</span>' +
+           '<h3 class="stop-name">' + T(s.k + '.n') + '</h3></div>' +
+           '<p class="stop-blurb">' + T(s.k + '.b') + '</p>' +
+           '<span class="stop-time">' + s.t + '</span>';
   }
-  sealedUnlocked = true;
-  const clue = $('#sealedClue');
-  clue.classList.add('unlocked');
-  $('#sealTag').textContent = T('clue3.tagopen');
-  if(announce) burst(30);
+  const ul = LANG === 'en' ? s.uL + ' pm' : s.uL;
+  return '<span class="redact"></span><span class="redact s"></span>' +
+         '<span class="stop-lock">' + T('day.unveil').replace('{t}', ul) + '</span>' +
+         '<span class="stop-in">' + T('day.in') + ' <b>--:--</b></span>';
+}
+function buildStop(s, i){
+  const el = document.createElement('article');
+  el.className = 'stop ' + (Date.now() >= s.unlock.getTime() ? 'unlocked' : 'locked');
+  el.dataset.i = i;
+  el.innerHTML = '<span class="stop-n">' + (i + 1) + '</span>' +
+                 '<div class="stop-main">' + stopHTML(s) + '</div>';
+  return el;
+}
+function renderDay(){
+  const host = $('#dayList');
+  if(!host) return;
+  host.innerHTML = '';
+  STOPS.forEach((s, i) => host.appendChild(buildStop(s, i)));
+  updateDay();
+}
+function updateDay(){
+  const now = Date.now();
+  $$('#dayList .stop.locked').forEach(el => {
+    const i = +el.dataset.i, s = STOPS[i];
+    const ms = s.unlock.getTime() - now;
+    if(ms <= 0){
+      el.classList.remove('locked');
+      el.classList.add('unlocked', 'reveal-pop');
+      const main = el.querySelector('.stop-main');
+      if(main) main.innerHTML = stopHTML(s);
+      if(!announced.has(i)){ announced.add(i); burst(22); }
+    }else{
+      const b = el.querySelector('.stop-in b');
+      if(b) b.textContent = fmtLeft(ms);
+    }
+  });
 }
 
 /* ================= ticking ================= */
-renderCountdown(); checkSeal(false);
-setInterval(()=>{ renderCountdown(); checkSeal(false); }, 1000);
+renderCountdown();
+setInterval(()=>{ renderCountdown(); updateDay(); }, 1000);
 
 /* ================= whatsapp / calendar ================= */
 function waURL(msg){ return 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg); }
@@ -739,22 +850,22 @@ $('#readyBtn').addEventListener('click', ()=>{
 });
 
 function icsText(){
-  const D = '20261004T183000', E = '20261004T233000';
+  const D = '20261004T130000', E = '20261004T230000';
   return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Hani//For Marcella//EN','CALSCALE:GREGORIAN',
     'BEGIN:VEVENT','UID:marcella-20261004@for-marcella.pages.dev',
     'DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z',
     'DTSTART:'+D,'DTEND:'+E,
     'SUMMARY:'+T('ics.summary'),
     'DESCRIPTION:'+T('ics.desc').replace(/[,;]/g,'\\$&'),
-    'LOCATION:'+(LANG==='ar'?'بيت مارسيلا':'your door'),
-    'BEGIN:VALARM','TRIGGER:-PT120M','ACTION:DISPLAY','DESCRIPTION:Get ready 💗','END:VALARM',
+    'LOCATION:'+(LANG==='ar'?'بيروت':'Beirut'),
+    'BEGIN:VALARM','TRIGGER:-PT180M','ACTION:DISPLAY','DESCRIPTION:Get ready 💗','END:VALARM',
     'END:VEVENT','END:VCALENDAR'].join('\r\n');
 }
 $('#icsBtn').addEventListener('click', ()=>{
   const blob = new Blob([icsText()], {type:'text/calendar;charset=utf-8'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'marcella-27-september.ics';
+  a.download = 'marcella-4-october.ics';
   document.body.appendChild(a); a.click();
   setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 400);
   const b = $('#icsBtn'), old = b.textContent;
